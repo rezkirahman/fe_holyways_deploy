@@ -31,22 +31,55 @@ export default function LandingPage() {
         <>
             {localStorage.token ? <NavbarUser /> : <NavbarGuest setShow={setShow} show={show} />}
             <section>
-                <Hero />
+                <div style={{ paddingTop: "55px" }} className="position-relative mb-5">
+                    <div style={{ paddingBottom: "24px", backgroundColor: primaryColor }} className='py-5 mb-5'>
+                        <Container className='my-5'>
+                            <div style={{ width: "700px" }} className='mb-5 mx-5'>
+                                <p className='text-white h1 fw-bold'>While you are still standing, try to reach out to the people who are falling.</p>
+                                <p className='text-white mt-4'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                                <Button
+                                    variant='light fw-bold mt-4 px-5'
+                                    style={{ color: primaryColor }}
+                                    onClick={localStorage.token ? "":handleClick}
+                                >
+                                    Donate Now
+                                </Button>
+                            </div>
+                        </Container>
+                    </div>
+                    <div className='pt-5'>
+                        <Container className='my-5' align="right">
+                            <div style={{ width: "700px" }} className="mx-5">
+                                <p className='h1 fw-bold mb-4' align="left">Your donation is very helpful for people affected by forest fires in Kalimantan.</p>
+                                <div className='d-flex justify-content-start' align="left">
+                                    <p className='me-3' style={{ width: "300px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p style={{ width: "300px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                </div>
+                            </div>
+                        </Container>
+                    </div>
+                    <div className='position-absolute top-0 end-0'>
+                        <img src={Hero1} alt='heroimage' width={515} className='img-fluid' />
+                    </div>
+                    <div className='position-absolute top-50 start-0'>
+                        <img src={Hero2} alt='heroimage' width={423} className='img-fluid' />
+                    </div>
+                </div>
             </section>
             <section id="Donate">
                 <Container style={{ paddingTop: "150px" }}>
                     <div align="center">
                         <p className='fw-bold h1' style={{ color: primaryColor }}>Donate Now</p>
                     </div>
-                    <div className='mt-5 pb-5 d-flex justify-content-center gap-4'>
+                    <div className='mt-5 pb-5 d-flex justify-content-center flex-wrap gap-4'>
                         {charities?.map((item, index) => (
-                            <Card style={{ width: '20rem' }} key={index}>
+                            <Card style={{ width: '20rem' }} key={index} className="">
                                 <Card.Img variant="top" src={item.image} alt={Hero1} height="400px" />
                                 <Card.Body>
-                                
+
                                     <Card.Title className='fw-bold'>{item.title}</Card.Title>
                                     <Card.Text className="mb-3 text-secondary d-inline-block text-truncate" style={{ width: "260px" }}>{item.description}</Card.Text>
-                                    <ProgressBar animated now={(item.donation/item.goal)*100} variant="danger" className="progress mb-3" style={{ height: "8px" }} />
+                                    <ProgressBar animated now={(item.donation / item.goal) * 100} variant="danger" className="progress mb-3" style={{ height: "8px" }} />
                                     <div className='d-flex justify-content-between'>
                                         <div className=''>
                                             <p className='fw-bold'>{formatIDR.format(item.goal)}</p>
@@ -69,44 +102,5 @@ export default function LandingPage() {
                 </Container>
             </section>
         </>
-    )
-}
-
-function Hero() {
-
-    return (
-        <div style={{ paddingTop: "55px" }} className="position-relative mb-5">
-            <div style={{ paddingBottom: "24px", backgroundColor: primaryColor }} className='py-5 mb-5'>
-                <Container className='my-5'>
-                    <div style={{ width: "700px" }} className='mb-5 mx-5'>
-                        <p className='text-white h1 fw-bold'>While you are still standing, try to reach out to the people who are falling.</p>
-                        <p className='text-white mt-4'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-                            <Button
-                                variant='light fw-bold mt-4 px-5'
-                                style={{ color: primaryColor }}
-                            >
-                                Donate Now
-                            </Button>
-                    </div>
-                </Container>
-            </div>
-            <div className='pt-5'>
-                <Container className='my-5' align="right">
-                    <div style={{ width: "700px" }} className="mx-5">
-                        <p className='h1 fw-bold mb-4' align="left">Your donation is very helpful for people affected by forest fires in Kalimantan.</p>
-                        <div className='d-flex justify-content-start' align="left">
-                            <p className='me-3' style={{ width: "300px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                            <p style={{ width: "300px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                        </div>
-                    </div>
-                </Container>
-            </div>
-            <div className='position-absolute top-0 end-0'>
-                <img src={Hero1} alt='heroimage' width={515} className='img-fluid' />
-            </div>
-            <div className='position-absolute top-50 start-0'>
-                <img src={Hero2} alt='heroimage' width={423} className='img-fluid' />
-            </div>
-        </div>
     )
 }

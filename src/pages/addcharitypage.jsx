@@ -3,7 +3,7 @@ import { Container, Button, Form, FloatingLabel } from "react-bootstrap";
 import NavbarUser from '../components/modal/header/user'
 import { useMutation } from "react-query";
 import { API } from "../config/api";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
@@ -12,9 +12,9 @@ export default function AddCharity() {
     const primaryColor = "#C32424"
     const [preview, setPreview] = useState(null)
     const [state] = useContext(UserContext)
+    const navigate = useNavigate()
 
     const [form, setForm] = useState({
-        user_id: 0,
         title: "",
         goal: "",
         image: "",
@@ -49,18 +49,19 @@ export default function AddCharity() {
             //store data with form-data
             const formData = new FormData()
             formData.set('title', form.title)
-            formData.set('goal', form.goal)
+            formData.set('goal', parseInt(form.goal))
             formData.set('image', form.image[0], form.image[0].name)
             formData.set('description', form.description)
-            formData.set('user_id', parseInt(state.user.id))
+            formData.set('user_id', state.user.id)
 
             const response = await API.post('/charity', formData, config)
             console.log(response);
 
-            Navigate('/charity-profile')
+            navigate('/charity-profile')
 
         } catch (error) {
             console.log(error);
+
         }
     })
 

@@ -14,10 +14,11 @@ export default function ProfileCharity() {
     const navigate = useNavigate()
     const [state] = useContext(UserContext)
 
-    let { data: charity } = useQuery("CharityCache", async () => {
+    let { data: charity } = useQuery("CharityCaches", async () => {
         const response = await API.get(`/charity-user/${state.user.id}`);
         return response.data.data;
     });
+    console.log(charity);
 
     return (
         <>
@@ -38,7 +39,7 @@ export default function ProfileCharity() {
                             </Button>
                         </div>
                     </div>
-                    <div className="d-flex gap-4">
+                    <div className="d-flex gap-4 flex-wrap">
                         {charity?.map((item, index) => (
                             <Card style={{ width: '20rem' }} key={index}>
                                 <Card.Img variant="top" src={item.image} alt={Photo} height="400px" />
