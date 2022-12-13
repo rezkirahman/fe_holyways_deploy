@@ -26,9 +26,15 @@ export default function Profile() {
                         <div className="col">
                             <p className="fw-bold fs-2 ">My Profile</p>
                             <div className="d-flex gap-5 pt-5">
-                                <div>
+                                <div className="mb-3">
                                     <img src={Photo} alt={Photo} width={180} className="img-fluid" />
                                 </div>
+                                <Button
+                                    variant='light fw-bold'
+                                    style={{ color: primaryColor }}
+                                >
+                                    Edit Profile
+                                </Button>
                                 <div>
                                     <div className="mb-3">
                                         <text className="fw-bold" style={{ color: primaryColor }}>Full Name</text><br />
