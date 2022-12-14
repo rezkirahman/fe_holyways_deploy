@@ -22,33 +22,28 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (state.isLogin === false) {
+    if (!localStorage.token) {
       navigate("/")
     }
-
     setAuthToken(localStorage.token)
   }, [localStorage.token])
 
   const checkUser = async () => {
     try {
       const response = await API.get('/check-auth');
-      // If the token incorrect
       if (response === 404) {
         return dispatch({
           type: 'AUTH_ERROR',
         });
       }
 
-      // Get user data
       let payload = response.data.data;
-      // Get token from local storage
       payload.token = localStorage.token;
 
-      // Send data to useContext
       dispatch({
         type: 'USER_SUCCESS',
         payload,
-      });;
+      })
     } catch (error) {
       console.log(error);
     }

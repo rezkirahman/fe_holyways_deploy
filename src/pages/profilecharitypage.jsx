@@ -14,11 +14,14 @@ export default function ProfileCharity() {
     const navigate = useNavigate()
     const [state] = useContext(UserContext)
 
-    let { data: charity } = useQuery("CharityCaches", async () => {
+    let { data: charity,refetch } = useQuery("CharityCaches", async () => {
         const response = await API.get(`/charity-user/${state.user.id}`);
         return response.data.data;
     });
-    console.log(charity);
+
+    if(charity?.length === 0){
+        refetch()
+    }
 
     return (
         <>

@@ -7,16 +7,22 @@ import { formatIDR } from "../components/format/format-number";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
     document.title = "Holyways | Profile"
     const primaryColor = "#C32424"
     const [state] = useContext(UserContext)
+    const navigate = useNavigate()
 
-    let { data: trans } = useQuery("TransCache", async () => {
+    let { data: trans, refetch } = useQuery("TransCache", async () => {
         const response = await API.get(`/transactions-user/${state.user.id}`);
         return response.data.data;
     });
+
+    if(trans?.length === 0){
+        refetch()
+    }
 
     return (
         <>

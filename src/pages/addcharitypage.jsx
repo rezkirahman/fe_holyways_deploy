@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Container, Button, Form, FloatingLabel } from "react-bootstrap";
+import { Container, Button, Form, FloatingLabel, Spinner } from "react-bootstrap";
 import NavbarUser from '../components/modal/header/user'
 import { useMutation } from "react-query";
 import { API } from "../config/api";
@@ -35,10 +35,11 @@ export default function AddCharity() {
         }
     }
 
+    const [loading, setLoading] = useState(false)
     const handleSubmit = useMutation(async (e) => {
         try {
             e.preventDefault()
-
+            setLoading(true)
             //config
             const config = {
                 header: {
@@ -120,7 +121,15 @@ export default function AddCharity() {
                                         style={{ backgroundColor: primaryColor, border: "none" }}
                                         onClick={(e) => handleSubmit.mutate(e)}
                                     >
-                                        Publish Fundraising
+                                        {loading ?
+                                    (<Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />) :
+                                    ("publish Fundraising")}
                                     </Button>
                                 </div>
                             </Form>

@@ -1,10 +1,10 @@
 // dependencies
 import React, { useState, useContext } from "react";
-import { Button, Modal, Form, Alert } from "react-bootstrap";
+import { Button, Modal, Form, Alert, Spinner } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
 import { useMutation } from "react-query";
 import { API } from '../config/api';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 const primaryColor = "#C32424"
@@ -15,6 +15,7 @@ export default function ModalLoginRegister({ show, setShow }) {
     const [shows, setShows] = useState(false);
     const handleShowRegister = () => setShows(true);
     const handleCloseRegister = () => setShows(false);
+    const navigate = useNavigate()
 
     const handleSwitchRegister = () => {
         setShow(false);
@@ -41,11 +42,11 @@ export default function ModalLoginRegister({ show, setShow }) {
             [e.target.name]: e.target.value,
         });
     };
-
+    const [loading, setLoading] = useState(false)
     const handleSubmitLogin = useMutation(async (e) => {
         try {
             e.preventDefault();
-
+            setLoading(true)
             const config = {
                 headers: {
                     "Content-type": "application/json",
@@ -63,7 +64,7 @@ export default function ModalLoginRegister({ show, setShow }) {
             console.log(state)
             console.log(response.data.data)
             setShow(false);
-
+            navigate(0)
         } catch (error) {
             <Alert variant="danger" className="py-1">
                 Login Failed
@@ -79,6 +80,7 @@ export default function ModalLoginRegister({ show, setShow }) {
         email: "",
         password: "",
     });
+
 
     const handleSubmitRegister = useMutation(async (e) => {
         try {
@@ -112,7 +114,7 @@ export default function ModalLoginRegister({ show, setShow }) {
     //-----------------------------------------------------
     return (
         <>
-            <Button onClick={handleShowLogin} variant="" className="me-3 fw-bold" style={{color:"white"}}>
+            <Button onClick={handleShowLogin} variant="" className="me-3 fw-bold" style={{ color: "white" }}>
                 Login
             </Button>
             <Modal show={show} onHide={handleCloseLogin} aria-labelledby="contained-modal-title-vcenter">
@@ -139,7 +141,17 @@ export default function ModalLoginRegister({ show, setShow }) {
                             />
                         </Form.Group>
                         <div className='d-grid gap-2'>
-                            <Button variant="danger" onClick={(e) => handleSubmitLogin.mutate(e)}>Login</Button>
+                            <Button variant="danger" onClick={(e) => handleSubmitLogin.mutate(e)}>
+                                {loading ?
+                                    (<Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />) :
+                                    ("Login")}
+                            </Button>
                         </div>
                     </Form>
                 </Modal.Body>
@@ -156,7 +168,7 @@ export default function ModalLoginRegister({ show, setShow }) {
                 </Modal.Body>
             </Modal>
 
-            <Button variant="light" onClick={handleShowRegister} className="fw-bold" style={{color:primaryColor}}>
+            <Button variant="light" onClick={handleShowRegister} className="fw-bold" style={{ color: primaryColor }}>
                 Register
             </Button>
             <Modal show={shows} onHide={handleCloseRegister} aria-labelledby="contained-modal-title-vcenter">
