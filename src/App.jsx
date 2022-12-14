@@ -27,7 +27,7 @@ function App() {
     }
 
     setAuthToken(localStorage.token)
-  }, [state])
+  }, [localStorage.token])
 
   const checkUser = async () => {
     try {

@@ -6,6 +6,7 @@ import { UserContext } from "../context/UserContext"
 import { formatIDR } from "../components/format/format-number";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
+import { Button } from "react-bootstrap";
 
 export default function Profile() {
     document.title = "Holyways | Profile"
@@ -24,17 +25,20 @@ export default function Profile() {
                 <div className="mx-5 pb-5">
                     <div className="row">
                         <div className="col">
-                            <p className="fw-bold fs-2 ">My Profile</p>
+                            <div className="d-flex gap-5">
+                                <div>
+                                    <p className="fw-bold fs-2 ">My Profile</p>
+                                </div>
+                                <div>
+                                    <Button className='fw-bold' style={{ backgroundColor: primaryColor, border: "none" }}>Edit Profile</Button>
+                                </div>
+                            </div>
                             <div className="d-flex gap-5 pt-5">
                                 <div className="mb-3">
-                                    <img src={Photo} alt={Photo} width={180} className="img-fluid" />
+                                    <div className="mb-3">
+                                        <img src={Photo} alt={Photo} width={180} className="img-fluid" />
+                                    </div>
                                 </div>
-                                <Button
-                                    variant='light fw-bold'
-                                    style={{ color: primaryColor }}
-                                >
-                                    Edit Profile
-                                </Button>
                                 <div>
                                     <div className="mb-3">
                                         <text className="fw-bold" style={{ color: primaryColor }}>Full Name</text><br />
